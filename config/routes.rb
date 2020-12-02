@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root 'furimatop#index'
+  root 'items#index'
 end
