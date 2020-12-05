@@ -1,24 +1,61 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# テーブル設計
 
-Things you may want to cover:
+## users テーブル
 
-* Ruby version
+| Column   | Type   | Options                           |
+| -------- | ------ | --------------------------------- |
+| family_name      | string | null: false               |
+| first_name       | string | null: false               |
+| family_name_kana | string | null: false               |
+| first_name_kana  | string | null: false               |
+| nickname         | string | null; false               |
+| email            | string | null: false , unique:true |
+| password         | string | null: false               |
+| birth_year       | string | nill: false               |
+| birth_month      | string | null: false               |
+| birth_day        | string | null: false               |
 
-* System dependencies
+### Association
+has_many:item
+has_many:buy
 
-* Configuration
 
-* Database creation
+## items テーブル
 
-* Database initialization
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| user_id       | references | null: false, foreign_key: true |
+| image         | string     | null: false                    |
+| item_name     | string     | null: false                    |
+| text          | text       | null: false                    |
+| category      | string     | null: false                    |
+| item_status   | string     | null: false                    |
+| postage       | string     | null: false                    |
+| ship_area     | string     | null: false                    |
+| ship_date     | datetime   | null: false                    |
+| price         | intager    | null: false                    |
 
-* How to run the test suite
+### Association
+belongs_to:user
+has_one:buy
 
-* Services (job queues, cache servers, search engines, etc.)
+## buys テーブル
 
-* Deployment instructions
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| user_id       | references | null: false, foreign_key: true |
+| item_id       | references | null: false, foreign_key: true |
+| card_number   | string     | null: false                    |
+| beadline      | datatime   | null: false                    |
+| security_code | string     | null: false                    | 
+| postal_code   | string     | null: false                    |
+| prefecture    | integer    | null: false                    |
+| city          | string     | null: false                    |
+| house_number  | string     | null: false                    |
+| billding_name | string     |                                |
+| phon_number   | string     | null: false                    |
 
-* ...
+### Association
+belongs_to:user
+belongs_to:item
