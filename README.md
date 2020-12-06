@@ -1,24 +1,63 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# テーブル設計
 
-Things you may want to cover:
+## users テーブル
 
-* Ruby version
+| Column   | Type   | Options                           |
+| -------- | ------ | --------------------------------- |
+| family_name        | string   | null: false               |
+| first_name         | string   | null: false               |
+| family_name_kana   | string   | null: false               |
+| first_name_kana    | string   | null: false               |
+| nickname           | string   | null; false               |
+| email              | string   | null: false , unique:true |
+| encripted_password | string   | null: false               |
+| birthday           | date     | nill: false               
 
-* System dependencies
+### Association
+has_many: items
+has_many: buys
 
-* Configuration
 
-* Database creation
+## items テーブル
 
-* Database initialization
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| user          | references | null: false, foreign_key: true |
+| name          | string     | null: false                    |
+| text          | text       | null: false                    |
+| category_id   | integer    | null: false                    |
+| status_id     | integer    | null: false                    |
+| postage_id    | integer    | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| ship_date_id  | integer    | null: false                    |
+| price         | integer    | null: false                    |
 
-* How to run the test suite
+### Association
+belongs_to: user
+has_one: buy
 
-* Services (job queues, cache servers, search engines, etc.)
+## buys テーブル
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| user          | references | null: false, foreign_key: true |
+| item          | references | null: false, foreign_key: true |
 
-* Deployment instructions
+### Association
+belongs_to: user
+belongs_to: item
+has_one: address
 
-* ...
+ ### address テーブル
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| buy           | references | null: false, foreign_key:true  |
+| postal_code   | string     | null: false                    |
+| prefecture_id | integer    | null: false                    |
+| city          | string     | null: false                    |
+| house_number  | string     | null: false                    |
+| billding_name | string     |                                |
+| phone_number   | string     | null: false                    |
+
+### Association
+belongs_to: buy
