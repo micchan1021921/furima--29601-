@@ -8,9 +8,8 @@ class User < ApplicationRecord
          validates :nickname
          validates :email, uniqueness: true
          VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}+\z/i
-         validates :password, format: { with: VALID_PASSWORD_REGEX } 
+         validates :password, confirmation: true, format: { with: VALID_PASSWORD_REGEX } 
          validates :birth_date
-
          with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/i } do
          validates :last_name
          validates :first_name

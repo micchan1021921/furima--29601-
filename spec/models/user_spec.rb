@@ -29,6 +29,11 @@ describe 'ユーザー新規登録' do
       @user.first_name_kana = "ミヅキ"
       expect(@user).to be_valid
     end
+    it "emailに＠を含めば登録できる"do
+      @user.email = "test@com"
+      @user.valid?
+      expect(@user).to be_valid
+    end
   end
 
   context '新規登録がうまくいかないとき' do
@@ -49,11 +54,6 @@ describe 'ユーザー新規登録' do
       another_user.valid?
       expect(another_user.errors.full_messages).to include("Email has already been taken")
     end
-    it "@を含まないemailは登録できない"do
-      @user.email = "testcom"
-      @user.valid?
-      expect(@user.errors.full_messages).to include("Email is invalid")
-    end
     it "passwordが空では登録できない" do
       @user.password = ""
       @user.valid?
@@ -69,6 +69,11 @@ describe 'ユーザー新規登録' do
       @user.valid?
       expect(@user.errors.full_messages).to include("Password is invalid")
     end
+    it "password_confirmationがpasswordと異なると登録できない" do
+      @user.password_confirmation = "password"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+     end
     it "last_nameが空では登録できない"do
       @user.last_name = ""
       @user.valid?
@@ -114,8 +119,6 @@ describe 'ユーザー新規登録' do
     @user.valid?
     expect(@user.errors.full_messages).to include("Birth date can't be blank")
     end
-  end
-
+   end
   end
 end
-
