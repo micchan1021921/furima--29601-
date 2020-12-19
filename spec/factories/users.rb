@@ -13,4 +13,3 @@ FactoryBot.define do
 end
 
 
-#{ '1a' + Faker::Internet.password(min_length: 7, max_length: 20) }
