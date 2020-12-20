@@ -9,31 +9,6 @@ describe 'ユーザー新規登録' do
     it "nickname、email、password、first_name、first_name_kana、last_name、last_name_kana、birth_dateが存在すれば登録できる" do
       expect(@user).to be_valid
     end
-    it "passwordが6文字以上で半角英数字混合であれば登録できる" do
-      @user.password = "a123456"
-      expect(@user).to be_valid
-    end
-    it "last_nameが全角であれば登録できる"do
-      @user.last_name = "松本"
-      expect(@user).to be_valid
-    end
-    it "firt_nameが全角であれば登録できる"do
-      @user.first_name = "美月"
-      expect(@user).to be_valid
-    end
-    it "last_name_kanaが全角（カタカナ）であれば登録できる"do
-      @user.last_name_kana = "マツモト"
-      expect(@user).to be_valid
-    end
-    it "first_name_kanaが全角（カタカナ）であれば登録できる"do
-      @user.first_name_kana = "ミヅキ"
-      expect(@user).to be_valid
-    end
-    it "emailに＠を含めば登録できる"do
-      @user.email = "test@com"
-      @user.valid?
-      expect(@user).to be_valid
-    end
   end
 
   context '新規登録がうまくいかないとき' do
@@ -54,6 +29,11 @@ describe 'ユーザー新規登録' do
       another_user.valid?
       expect(another_user.errors.full_messages).to include("Email has already been taken")
     end
+    it "emailに@を含んでいないと登録できない"do
+      @user.email = "abc.def"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Email is invalid")
+    end
     it "passwordが空では登録できない" do
       @user.password = ""
       @user.valid?
@@ -64,8 +44,18 @@ describe 'ユーザー新規登録' do
       @user.valid?
       expect(@user.errors.full_messages).to include("Password is invalid")
     end
-    it "passwordが半角英数字混合でなければ登録できない" do
+    it "passwordが半角数字のみの場合登録できない"do
       @user.password = "123456"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is invalid")
+    end
+    it "passwordが半角英字のみの場合登録できない" do
+      @user.password = "abcdef"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Password is invalid")
+    end
+    it "passwordが全角英数字の場合登録できない" do
+      @user.password = "ａｉｕｅｏ"
       @user.valid?
       expect(@user.errors.full_messages).to include("Password is invalid")
     end
