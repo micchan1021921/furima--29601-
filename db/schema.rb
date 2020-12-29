@@ -36,11 +36,11 @@ ActiveRecord::Schema.define(version: 2020_12_29_035422) do
   create_table "items", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name", null: false
     t.text "info", null: false
-    t.integer "category", null: false
-    t.integer "seles_status", null: false
-    t.integer "shippings_tee_status", null: false
-    t.integer "prefecture", null: false
-    t.integer "scheduled_delivary", null: false
+    t.integer "category_id", null: false
+    t.integer "sales_status_id", null: false
+    t.integer "shippings_tee_status_id", null: false
+    t.integer "prefecture_id", null: false
+    t.integer "scheduled_delivary_id", null: false
     t.integer "price", null: false
     t.integer "add_tax_price", null: false
     t.integer "profit", null: false
