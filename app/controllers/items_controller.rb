@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only:[:new]
 
   def index
-    @items = Item.order("updated_at DESC").limit(4)
+    @items = Item.includes(:user).order("updated_at DESC").limit(4)
   end
 
   def new
