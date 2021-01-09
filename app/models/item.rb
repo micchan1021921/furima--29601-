@@ -2,8 +2,9 @@ class Item < ApplicationRecord
   has_one_attached :image
   belongs_to :user
   extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category, :sales_status, :ahippings_tee_status, :prefecture, :scheduled_delivary
-  
+  belongs_to :category, :sales_status, :shippings_tee_status, :prefecture, :scheduled_delivary
+  belongs_to :shippings_tee_status
+
   with_options presence: true do
     validates :image
     validates :name
