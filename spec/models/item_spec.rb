@@ -7,7 +7,6 @@ describe '商品出品' do
 
   context '商品登録がうまくいくとき' do
    it "image、name、info、category_id、sales_status_id、shippings_tee_status_id、prefecture_id、scheduled_delivary_id、priceが存在すれば登録できる" do
-    binding.pry
     expect(@item).to be_valid
     end
   end
