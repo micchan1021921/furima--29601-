@@ -9,7 +9,7 @@ describe OrderAddress do
 describe '商品購入' do
 
   context '商品購入がうまくいくとき' do
-    it "postal_code、prefecture_id、city、address、phone_numberが存在すれば登録できる" do
+    it "postal_code、prefecture_id、city、address、phone_number、tokenが存在すれば登録できる" do
       expect(@order_address).to be_valid
     end
   end
@@ -60,6 +60,11 @@ describe '商品購入' do
        @order_address.phone_number = "123-4567-12"
        @order_address.valid?
        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
+    end
+    it "tokenが空では購入できない"do
+       @order_address.token = nil
+       @order_address.valid?
+       expect(@order_address.errors.full_messages).to include("Token can't be blank")
     end
   end
 
