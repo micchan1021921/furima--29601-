@@ -6,7 +6,7 @@ class User < ApplicationRecord
          
          with_options presence: true do
          validates :nickname
-         validates :email, uniqueness: true
+         
          VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]{6,100}+\z/i
          validates :password, confirmation: true, format: { with: VALID_PASSWORD_REGEX } 
          validates :birth_date

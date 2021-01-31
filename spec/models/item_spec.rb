@@ -10,6 +10,7 @@ describe '商品出品' do
     expect(@item).to be_valid
     end
   end
+
   context '商品登録がうまくいかないとき' do
     it "imageが空だと登録できない" do
       @item.image = nil
